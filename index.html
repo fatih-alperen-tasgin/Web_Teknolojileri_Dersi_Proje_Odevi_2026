@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FatEnTa | Ana Sayfa</title>
+
+    <!-- Yerel Kütüphaneler (lib klasöründen) -->
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/css/all.min.css">
+
+    <!-- Senin Kendi Stilin -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navigasyon Menüsü -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <i class="fa-solid fa-code"></i> FatEnTa
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="index.html">Hakkımda</a></li>
+                <li class="nav-item"><a class="nav-link" href="cv.html">CV</a></li>
+                <li class="nav-item"><a class="nav-link" href="sehir.html">Şehrim</a></li>
+                <li class="nav-item"><a class="nav-link" href="iletisim.html">İletişim</a></li>
+                <li class="nav-item">
+                    <a href="login.html" class="btn btn-outline-warning ms-lg-3">Giriş Yap</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Ana İçerik Alanı -->
+<main class="container my-5">
+    <!-- Modern Hero Section -->
+    <section id="about"
+             class="text-center py-5 mb-5 bg-dark text-white rounded-5 shadow-lg position-relative overflow-hidden">
+        <div class="container position-relative" style="z-index: 2;">
+            <h1 class="display-3 fw-bolder mb-3 text-warning">Fatih Alperen Taşğın</h1>
+            <p class="lead fs-3 opacity-75">Bilgisayar Mühendisliği Öğrencisi & Sistem Mimarı</p>
+            <div class="mt-4">
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2 me-2">#SoftwareEngineering</span>
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2 me-2">#CyberSecurity</span>
+                <span class="badge rounded-pill bg-light text-dark px-3 py-2">#Galatasaray</span>
+            </div>
+        </div>
+        <!-- Arka plana hafif bir dekoratif efekt -->
+        <div class="position-absolute top-50 start-50 translate-middle opacity-25" style="z-index: 1;">
+            <i class="fa-solid fa-code fa-10x"></i>
+        </div>
+    </section>
+
+    <!-- İlgi Alanları ve Kartlar -->
+    <section id="hobbies" class="py-5 bg-light rounded-4 shadow-sm">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-5"><i class="fa-solid fa-heart text-danger"></i> İlgi Alanlarım & Hobiler</h2>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Oyunlar Kartı -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 p-3">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-warning mb-3">
+                                <i class="fa-solid fa-gamepad fa-2x"></i><br>Video Oyunları
+                            </h5>
+                            <p class="card-text text-secondary">
+                                RDR2, Mafia serisi ve PUBG oynamaktan keyif alıyorum. Başarımlarımı Steam ve Epic Games
+                                üzerinden takip edebilirsiniz.
+                            </p>
+                            <div class="d-grid gap-2">
+                                <a href="https://steamcommunity.com/id/FatEnTa" target="_blank"
+                                   class="btn btn-sm btn-dark rounded-pill">Steam</a>
+                                <a href="https://www.epicgames.com/u/FatEnTa" target="_blank"
+                                   class="btn btn-sm btn-outline-dark rounded-pill">Epic Games</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Galatasaray / Spor Kartı -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 p-3">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-danger mb-3">
+                                <i class="fa-solid fa-star fa-2x text-warning"></i><br>Galatasaray
+                            </h5>
+                            <p class="card-text text-secondary">
+                                Sıkı bir Galatasaray taraftarıyım. Takımımın maçlarını düzenli olarak takip etmek ve
+                                spor analizlerini izlemek en büyük hobilerimden biri.
+                            </p>
+                            <span class="badge rounded-pill bg-danger text-warning fw-bold">#Hedef25</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sistem & Kodlama Kartı -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 p-3">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info mb-3">
+                                <i class="fa-solid fa-microchip fa-2x"></i><br>Teknoloji & Sistem
+                            </h5>
+                            <p class="card-text text-secondary">
+                                C#, C++ ve Web teknolojileriyle ilgileniyorum. Ayrıca Windows sistem optimizasyonu ve
+                                telemetri kontrolü üzerine çalışıyorum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bağlantılar Bölümü -->
+    <section id="media-links" class="py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Bağlantılar</h2>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="list-group shadow-sm mb-4">
+                        <!-- GitHub artık sadece burada, daha güçlü vurgulanmış durumda -->
+                        <a href="https://github.com/fatih-alperen-tasgin" target="_blank"
+                           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+                            <span class="fw-bold"><i class="fa-brands fa-github fa-lg me-2"></i> GitHub Profilim (Projeler ve Kodlar)</span>
+                            <span class="badge bg-primary rounded-pill">İncele</span>
+                        </a>
+                        <a href="https://x.com/_fatihtasgin" target="_blank"
+                           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+                            <span><i class="fa-brands fa-x-twitter fa-lg me-2"></i> X (Twitter)</span>
+                            <i class="fa-solid fa-external-link-alt text-muted"></i>
+                        </a>
+                    </div>
+
+                    <div class="p-4 bg-warning bg-opacity-10 border border-warning rounded-4 text-center">
+                        <h5 class="fw-bold"><i class="fa-solid fa-envelope me-2"></i> İletişimde Kalalım</h5>
+                        <p class="mb-3 text-dark">Herhangi bir sorunuz veya iş birliği teklifiniz için bana
+                            yazabilirsiniz.</p>
+                        <a href="iletisim.html" class="btn btn-warning btn-lg px-5 rounded-pill fw-bold shadow-sm">Mesaj
+                            Gönder</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Alt Bilgi -->
+<footer class="bg-dark text-white text-center py-4 mt-auto">
+    <div class="container">
+        <small>&copy; 2026 Fatih Alperen Taşğın. Tüm hakları saklıdır.</small>
+    </div>
+</footer>
+
+<!-- JS Kütüphaneleri (En altta olması performansı artırır) -->
+<script src="lib/js/bootstrap.bundle.min.js"></script>
+<!-- Kendi JavaScript Dosyan -->
+<script src="js/sehir.js"></script>
+</body>
+</html>

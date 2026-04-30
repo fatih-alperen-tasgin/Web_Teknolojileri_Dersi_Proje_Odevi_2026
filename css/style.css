@@ -1,0 +1,32 @@
+/* Modern Arka Plan ve Kart Efektleri */
+body {
+    background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    transition: transform 0.3s ease, shadow 0.3s ease;
+    border: none !important;
+}
+
+/* Kartın üzerine gelince hafifçe yükselmesi */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+}
+
+/* Navigasyon çubuğu için hafif şeffaflık */
+.navbar {
+    backdrop-filter: blur(10px);
+    background-color: rgba(33, 37, 41, 0.9) !important;
+}
+
+/* Buton parlaması */
+.btn-warning {
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+}
