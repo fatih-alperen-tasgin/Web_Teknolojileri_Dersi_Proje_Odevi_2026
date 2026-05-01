@@ -5,7 +5,7 @@ body {
 }
 
 .card {
-    transition: transform 0.3s ease, shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: none !important;
 }
 
