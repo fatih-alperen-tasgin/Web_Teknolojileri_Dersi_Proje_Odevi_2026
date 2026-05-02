@@ -1,32 +1,216 @@
-/* Modern Arka Plan ve Kart Efektleri */
+/* 1. DEĞİŞKENLER VE RENK PALETİ */
+:root {
+    --ana-renk: rgb(28, 37, 51);
+    --siyah: rgb(33, 37, 41);
+    --gs-sari: #ffb11a;
+    --beyaz: #ffffff;
+    --gri-metin: #495057;
+    --kart-kenarlik: #e0e0e0;
+}
+
+/* 2. ÖZEL RENK SINIFLARI (Utility Classes) */
+.bg-ana { background-color: var(--ana-renk) !important; }
+.bg-siyah { background-color: var(--siyah) !important; }
+.bg-sari { background-color: var(--gs-sari) !important; }
+
+.text-ana { color: var(--ana-renk) !important; }
+.text-sari { color: var(--gs-sari) !important; }
+.text-beyaz { color: var(--beyaz) !important; }
+
+/* 3. GENEL AYARLAR */
 body {
-    background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    background-color: var(--beyaz);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.4s ease-in-out;
 }
 
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none !important;
+/* Sayfa yüklendiğinde aktif olacak sınıf */
+body.loaded {
+    opacity: 1;
 }
 
-/* Kartın üzerine gelince hafifçe yükselmesi */
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--ana-renk); /* Beyazlığı kapatan ana rengin */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
 }
 
-/* Navigasyon çubuğu için hafif şeffaflık */
+/* Sayfa yüklendiğinde preloader'ı gizlemek için */
+.loader-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+svg {
+    fill: currentColor;
+}
+
+/* 4. NAVBAR VE LOADER AYARLARI */
 .navbar {
-    backdrop-filter: blur(10px);
-    background-color: rgba(33, 37, 41, 0.9) !important;
+    background-color: var(--ana-renk) !important;
+    padding: 1rem 0;
 }
 
-/* Buton parlaması */
-.btn-warning {
-    transition: all 0.3s ease;
+.navbar-nav .nav-link {
+    transition: color 0.3s ease;
+    position: relative;
+    display: inline-block;
+    width: max-content;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-.btn-warning:hover {
+.navbar-nav .nav-link:hover {
+    color: var(--gs-sari) !important;
+}
+
+#navbar-placeholder .nav-link::after {
+    content: '';
+    display: block;
+    width: 0; /* Başlangıçta genişlik sıfır */
+    height: 2px;
+    background: var(--gs-sari);
+    margin-top: 5px;
+    border-radius: 2px;
+    transition: width 0.4s ease-in-out;
+}
+
+#navbar-placeholder .nav-link.active::after {
+    width: 100%; /* Aktif olduğunda tam genişlik */
+}
+
+/* 5. BILEŞENLER (Components) */
+
+/* About Section */
+.about {
+    background-color: var(--ana-renk) !important;
+    color: var(--beyaz) !important;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.about h1, .about p, .about .lead {
+    color: var(--beyaz) !important;
+}
+
+/* Özel Tablo Tasarımı */
+.table-custom {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid var(--kart-kenarlik);
+    border-radius: 15px; /* Tablonun köşelerini yuvarlatıyoruz */
+    overflow: hidden; /* Köşelerin düzgün görünmesi için */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Başlık Alanı (Thead) */
+.table-custom thead {
+    background-color: var(--ana-renk) !important;
+    color: var(--gs-sari) !important; /* Başlıklar Galatasaray sarısı */
+}
+
+.table-custom th {
+    padding: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+    border: none;
+}
+
+/* Satır Ayarları */
+.table-custom td {
+    padding: 12px 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f0f0;
+    color: var(--gri-metin);
+}
+
+/* Hover Efekti (Fare ile üzerine gelince) */
+.table-custom tbody tr:hover {
+    background-color: rgba(28, 37, 51, 0.03); /* Çok hafif lacivert bir vurgu */
+    transition: background-color 0.3s ease;
+}
+
+/* Son satırın çizgisini kaldıralım */
+.table-custom tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Modern Kartlar */
+.card {
+    background-color: var(--beyaz) !important;
+    color: #212529 !important;
+    border: 1px solid var(--kart-kenarlik) !important;
+    transition: all 0.3s ease;
+    box-shadow: none !important;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05) !important;
+    border-color: #d0d0d0 !important;
+}
+
+.card-title {
+    font-weight: 700;
+}
+
+.card-text {
+    color: var(--gri-metin) !important;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Butonlar */
+.card .btn {
+    width: 100%;
+    border-radius: 4px;
+    font-weight: 600;
+    padding: 10px;
+    border: none;
+    transition: transform 0.2s;
+}
+
+.card .btn:active {
+    transform: scale(0.98);
+}
+
+.btn-gs {
+    background-color: var(--gs-sari) !important;
+    color: #000 !important;
+}
+
+.btn-dark-custom {
+    background-color: #212529 !important;
+    color: var(--beyaz) !important;
+}
+
+/* 6. YARDIMCI ÖĞELER */
+.badge {
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+footer {
+    background-color: var(--ana-renk) !important;
+    color: var(--beyaz) !important;
+    margin-top: auto;
+}
+
+/* style.css dosyanın en sonuna ekle */
+body {
+    background-color: #ffffff !important; /* Sayfa tamamen hazır olduğunda beyaza döner */
+    transition: background-color 0.5s ease; /* Renk geçişi de yumuşak olsun */
 }
