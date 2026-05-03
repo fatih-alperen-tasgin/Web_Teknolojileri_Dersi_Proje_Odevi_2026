@@ -2,7 +2,7 @@
 :root {
     --ana-renk: rgb(28, 37, 51);
     --siyah: rgb(33, 37, 41);
-    --gs-sari: #ffb11a;
+    --gs-sari: rgb(255, 193, 7);
     --beyaz: #ffffff;
     --gri-metin: #495057;
     --kart-kenarlik: #e0e0e0;
@@ -137,6 +137,12 @@ svg {
     color: var(--gri-metin);
 }
 
+.table-custom th {
+    background-color: var(--ana-renk) !important;
+    color: #ffffff !important;
+}
+
+
 /* Hover Efekti (Fare ile üzerine gelince) */
 .table-custom tbody tr:hover {
     background-color: rgba(28, 37, 51, 0.03); /* Çok hafif lacivert bir vurgu */
@@ -187,14 +193,9 @@ svg {
     transform: scale(0.98);
 }
 
-.btn-gs {
-    background-color: var(--gs-sari) !important;
-    color: #000 !important;
-}
-
 .btn-dark-custom {
     background-color: #212529 !important;
-    color: var(--beyaz) !important;
+    color: var(--gs-sari) !important;
 }
 
 /* 6. YARDIMCI ÖĞELER */
@@ -213,4 +214,9 @@ footer {
 body {
     background-color: #ffffff !important; /* Sayfa tamamen hazır olduğunda beyaza döner */
     transition: background-color 0.5s ease; /* Renk geçişi de yumuşak olsun */
+}
+
+.text-warning {
+    color: #ffc107 !important; /* GS Sarısı */
+    filter: drop-shadow(0 0 2px rgba(255, 193, 7, 0.5)); /* Hafif parlama efekti */
 }

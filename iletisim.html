@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FatEnTa | İletişim</title>
+
+    <style>
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgb(28, 37, 51) !important;
+            z-index: 9999; display: flex; justify-content: center; align-items: center;
+        }
+        body { background-color: rgb(28, 37, 51); margin: 0; }
+    </style>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+</head>
+<body>
+
+<div id="preloader">
+    <div class="spinner-border text-warning" role="status"></div>
+</div>
+
+<!-- Navbar buraya yüklenecek -->
+<div id="navbar-placeholder"></div>
+
+<div id="app" class="container my-5">
+    <section class="about text-center py-5 mb-5 rounded-5 shadow-lg overflow-hidden">
+        <h1 class="display-4 fw-bold text-white">Bana Ulaşın</h1>
+        <p class="lead text-white-50">Bir proje fikriniz mi var? Mesajınızı bekliyorum.</p>
+    </section>
+
+    <!-- Formun hemen üstüne ekle -->
+    <div v-if="gonderildi" class="alert alert-success alert-dismissible fade show rounded-4 shadow-sm mb-4" role="alert">
+        <div class="d-flex align-items-center">
+            <svg class="me-2" width="24" height="24" fill="currentColor">
+                <use xlink:href="img/icons.svg#star"></use>
+            </svg>
+            <div>
+                <strong>Harika!</strong> Mesajın başarıyla simüle edildi. Sistem mimarisi tamamlandığında mailine düşecektir.
+            </div>
+        </div>
+        <button type="button" class="btn-close" @click="gonderildi = false"></button>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg rounded-4 p-4">
+                <form @submit.prevent="gonder" class="row g-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Ad Soyad</label>
+                        <input type="text" class="form-control form-control-lg" v-model="form.ad" placeholder="Adınız Soyadınız" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">E-posta</label>
+                        <input type="email" class="form-control form-control-lg" v-model="form.email" placeholder="ornek@mail.com" required />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Konu</label>
+                        <input type="text" class="form-control form-control-lg" v-model="form.konu" placeholder="Mesajınızın konusu" required />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Mesaj</label>
+                        <textarea class="form-control form-control-lg" v-model="form.mesaj" rows="5" placeholder="Bana ne anlatmak istersiniz?" required></textarea>
+                    </div>
+                    <div class="col-12 text-center mt-5">
+                        <button type="submit" class="btn btn-warning btn-lg px-5 fw-bold rounded-pill shadow-sm me-3">
+                            Gönder
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-lg px-4 rounded-pill" @click="temizle">
+                            Temizle
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alt Bilgi -->
+<footer class="text-white text-center py-4 mt-auto">
+    <div class="container">
+        <small>&copy; 2026 Fatih Alperen Taşğın. Tüm hakları saklıdır.</small>
+    </div>
+</footer>
+
+<!-- Kütüphaneler -->
+<script src="https://unpkg.com/vue@3"></script>
+<script src="lib/js/bootstrap.bundle.min.js"></script>
+<script src="js/navbar-loader.js"></script>
+<script src="js/iletisim.js"></script>
+
+<script>
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>

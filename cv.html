@@ -46,75 +46,101 @@
 
 <!-- CV İçeriği -->
 <main class="container my-5">
-    <!-- CV.html içindeki header -->
-    <section class="about text-center py-5 mb-5 rounded-5 shadow-lg overflow-hidden">
-        <h1 class="display-4 fw-bold text-white">Özgeçmiş</h1>
-        <p class="lead text-white-50">Akademik Geçmiş ve Teknik Yetkinlikler</p>
-    </section>
+    <!-- Modern Hero Section -->
+    <div class="row g-5">
+        <!-- Sol Kolon: Eğitim ve Deneyim -->
+        <div class="col-lg-8">
+            <section class="mb-5">
+                <h2 class="mb-4 pb-2 border-bottom"><i class="fa-solid fa-graduation-cap me-2"></i> Eğitim</h2>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Kurum</th>
+                            <th>Bölüm / Alan</th>
+                            <th>Dönem</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="table-primary text-dark">
+                            <td><strong>Sakarya Üniversitesi</strong></td>
+                            <td>Bilgisayar Mühendisliği</td>
+                            <td>2024 - Günümüz</td>
+                        </tr>
+                        <tr>
+                            <td>Dolapoğlu Anadolu Lisesi</td>
+                            <td>Sayısal</td>
+                            <td>2015 - 2019</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-    <section class="mb-5">
-        <h2 class="mb-3">Eğitim</h2>
-        <div class="table-responsive">
-            <table class="table table-custom">
-                <thead class="th">
-                <tr>
-                    <th>Okul</th>
-                    <th>Bölüm</th>
-                    <th>Yıllar</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Sakarya Üniversitesi</td>
-                    <td>Bilgisayar Mühendisliği</td>
-                    <td>2024 - ...</td>
-                </tr>
-                <tr>
-                    <td>Dolapoğlu Anadolu Lisesi</td>
-                    <td>Sayısal Bölüm</td>
-                    <td>2015 - 2019</td>
-                </tr>
-                <tr>
-                    <td>Vali Necati Çetinkaya Ortaokulu</td>
-                    <td>-</td>
-                    <td>2012 - 2015</td>
-                </tr>
-                <tr>
-                    <td>Niyazi Usta İlkokulu</td>
-                    <td>-</td>
-                    <td>2007 - 2012</td>
-                </tr>
-                </tbody>
-            </table>
+            <section class="mb-5">
+                <h2 class="mb-4 pb-2 border-bottom"><i class="fa-solid fa-code-branch me-2"></i> Öne Çıkan Projeler</h2>
+                <div class="card mb-3 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Nesne Yönelimli Programlama (NDP) Çizim Uygulaması</h5>
+                        <p class="card-text text-muted small">C# ve Windows Form kullanılarak geliştirilen, nesne
+                            tabanlı mimariye sahip çizim aracı.</p>
+                        <span class="badge bg-dark">C#</span> <span class="badge bg-dark">WinForms</span> <span
+                            class="badge bg-dark">OOP</span>
+                    </div>
+                </div>
+                <div class="card mb-3 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Yazılım Kurulum (Setup) Projeleri</h5>
+                        <p class="card-text text-muted small">Inno Setup kullanarak profesyonel yazılım dağıtım
+                            paketlerinin hazırlanması.</p>
+                        <span class="badge bg-dark">Inno Setup</span> <span class="badge bg-dark">Deployment</span>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
 
-    <section class="mb-4">
-        <h2>Teknik Beceriler</h2>
-        <ol>
-            <li>C++, C# (orta seviye)</li>
-            <li>HTML, CSS, JavaScript (temel)</li>
-            <li>Visual Studio, VS Code, Windows Form</li>
-            <li>Git ve GitHub</li>
-        </ol>
-    </section>
+        <!-- Sağ Kolon: Yetkinlikler ve Diğerleri -->
+        <div class="col-lg-4">
+            <section class="mb-5 p-4 bg-light rounded-4 shadow-sm">
+                <h3 class="h5 fw-bold mb-4">Teknik Yetkinlikler</h3>
 
-    <section class="mb-4">
-        <h2>Yabancı Dil</h2>
-        <ul>
-            <li>Türkçe – Ana dil</li>
-            <li>İngilizce – B1/B2 seviyesi</li>
-        </ul>
-    </section>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1 small fw-bold"><span>C++ / C#</span><span>75%</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-primary" style="width: 75%"></div>
+                    </div>
+                </div>
 
-    <section class="mb-4">
-        <h2>İlgi Alanları</h2>
-        <ul>
-            <li>Galatasaray maçlarını izlemek</li>
-            <li>Yazılım projeleri geliştirmek</li>
-            <li>Oyun oynamak</li>
-        </ul>
-    </section>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1 small fw-bold">
+                        <span>HTML / CSS / JS</span><span>60%</span></div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-success" style="width: 60%"></div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1 small fw-bold"><span>SQL / Veritabanı</span><span>50%</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-info" style="width: 50%"></div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h4 class="h6 fw-bold mb-3">Araçlar</h4>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge outline-dark-custom">VS Code</span>
+                        <span class="badge outline-dark-custom">Git</span>
+                        <span class="badge outline-dark-custom">WampServer</span>
+                        <span class="badge outline-dark-custom">Cursor</span>
+                        <span class="badge outline-dark-custom">Obsidian</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 </main>
 
 <!-- Alt Bilgi -->
