@@ -2,6 +2,15 @@
 header('Content-Type: text/html; charset=UTF-8');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Basit CSRF double-submit kontrolü: cookie ile POST içindeki token eşleşmeli
+    $postToken = $_POST['csrf_token'] ?? '';
+    $cookieToken = $_COOKIE['csrf_token'] ?? '';
+    if (empty($postToken) || empty($cookieToken) || !hash_equals((string)$cookieToken, (string)$postToken)) {
+        // Geçersiz token - güvenlik nedeni ile işlemi sonlandır
+        http_response_code(400);
+        echo '<!doctype html><html><head><meta charset="utf-8"><title>Geçersiz İstek</title></head><body style="background:#1c2533;color:#fff;padding:2rem;"><h1>Geçersiz veya eksik güvenlik tokeni.</h1><p>Lütfen formu tekrar doldurup gönderin.</p><p><a href="../iletisim.html" style="color:#ffd966;">Geri dön</a></p></body></html>';
+        exit();
+    }
     $safe = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
 
     $ad = $safe($_POST['ad'] ?? 'Belirtilmedi');

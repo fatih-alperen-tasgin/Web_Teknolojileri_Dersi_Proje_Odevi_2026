@@ -94,6 +94,26 @@ createApp({
             jsBtn.addEventListener('click', jsDenetle);
         }
 
+        // CSRF token (double-submit) oluştur ve form gizli alanına yaz
+        const ensureCsrf = () => {
+            try {
+                const existing = document.cookie.split('; ').find(row => row.startsWith('csrf_token='));
+                let token = existing ? existing.split('=')[1] : null;
+                if (!token) {
+                    // basit rastgele token
+                    token = crypto && crypto.getRandomValues ? Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b=>b.toString(16).padStart(2,'0')).join('') : (Date.now().toString(16) + Math.random().toString(16).slice(2));
+                    document.cookie = `csrf_token=${token}; path=/`;
+                }
+                const tokenInput = document.getElementById('csrf_token');
+                if (tokenInput) tokenInput.value = token;
+            } catch (e) {
+                // tarayıcı desteklemiyorsa sessizce geç
+                console.warn('CSRF token yaratilirken hata:', e);
+            }
+        };
+
+        ensureCsrf();
+
         return {
             form,
             gonder,

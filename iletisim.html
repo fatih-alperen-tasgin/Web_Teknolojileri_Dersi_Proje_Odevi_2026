@@ -36,6 +36,8 @@
         <div class="col-lg-8">
             <div class="card border-0 shadow-lg rounded-4 p-4">
                 <form id="iletisimFormu" action="php/iletisim.php" method="POST" class="row g-4" @submit.prevent="gonder">
+                    <!-- CSRF token (double-submit) -->
+                    <input type="hidden" name="csrf_token" id="csrf_token" value="">
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Ad Soyad</label>
                         <input type="text" name="ad" class="form-control form-control-lg" v-model="form.ad" required />
@@ -101,12 +103,7 @@
     </div>
 </div>
 
-<!-- Alt Bilgi -->
-<footer class="text-white text-center py-4 mt-auto">
-    <div class="container">
-        <small>&copy; 2026 Fatih Alperen Taşğın. Tüm hakları saklıdır.</small>
-    </div>
-</footer>
+<div id="footer-placeholder"></div>
 
 <!-- Kütüphaneler -->
 <script src="https://unpkg.com/vue@3"></script>

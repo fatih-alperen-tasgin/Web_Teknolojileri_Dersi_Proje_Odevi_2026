@@ -8,7 +8,7 @@
     <!-- Pörtfolyo Renk Paleti ve Temel Stiller -->
     <link href="css/style.css" rel="stylesheet"/>
     <link href="lib/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    <link href="lib/css/all.min.css" rel="stylesheet"/>
 
     <style>
         body {
@@ -32,10 +32,10 @@
 <!-- Başlık Bölümü: Gri kutu kaldırıldı, temiz tasarım eklendi -->
 <div class="container my-5">
     <div class="text-center py-4">
-        <h1 class="display-4 fw-bold text-dark mb-3">
+        <h1 class="display-4 fw-bold text-white mb-3">
             Galatasaray <span class="text-danger">Gündemi</span>
         </h1>
-        <p class="lead text-secondary mx-auto" style="max-width: 700px;">
+        <p class="lead text-white-50 mx-auto" style="max-width: 700px;">
             İnternet üzerindeki haber API'leri kullanılarak çekilen en güncel Galatasaray haberleri.
         </p>
         <div class="mt-4">
@@ -59,15 +59,9 @@
     </div>
 </div>
 
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-4 mt-auto border-top border-secondary">
-    <div class="container">
-        <small>&copy; 2026 Fatih Alperen Taşğın. Tüm hakları saklıdır.</small>
-    </div>
-</footer>
+<div id="footer-placeholder"></div>
 
 <!-- JS Kütüphaneleri -->
-<script src="https://unpkg.com/vue@3"></script>
 <script src="lib/js/bootstrap.bundle.min.js"></script>
 <script src="navbar-loader.js"></script>
 <script src="js/ilgi-api.js"></script>
