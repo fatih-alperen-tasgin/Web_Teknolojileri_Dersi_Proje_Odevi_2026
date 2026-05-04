@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FatEnTa | İlgi Alanlarım</title>
+
+    <!-- Pörtfolyo Renk Paleti ve Temel Stiller -->
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="lib/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+
+    <style>
+        body {
+            background-color: rgb(28, 37, 51);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar (Dinamik Loader veya Manuel Ekleme) -->
+<div id="navbar-placeholder"></div>
+
+<!-- Başlık Bölümü: Gri kutu kaldırıldı, temiz tasarım eklendi -->
+<div class="container my-5">
+    <div class="text-center py-4">
+        <h1 class="display-4 fw-bold text-dark mb-3">
+            Galatasaray <span class="text-danger">Gündemi</span>
+        </h1>
+        <p class="lead text-secondary mx-auto" style="max-width: 700px;">
+            İnternet üzerindeki haber API'leri kullanılarak çekilen en güncel Galatasaray haberleri.
+        </p>
+        <div class="mt-4">
+            <span class="badge rounded-pill bg-light text-danger border border-danger px-3 py-2">
+                <i class="fa-solid fa-code me-1"></i> API Entegrasyonu
+            </span>
+            <span class="badge rounded-pill bg-light text-warning border border-warning px-3 py-2 ms-2">
+                <i class="fa-solid fa-circle-dot me-1"></i> Canlı Veri
+            </span>
+        </div>
+    </div>
+
+    <hr class="my-5 opacity-25">
+    <!-- Haber Kartlarının Geleceği Yer -->
+    <div id="haberler" class="row g-4 justify-content-center">
+        <!-- Yükleme Animasyonu -->
+        <div id="loading" class="text-center py-5">
+            <div class="spinner-border text-warning" role="status"></div>
+            <p class="mt-3 text-white-50 fw-bold">Haberler sunucudan çekiliyor...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4 mt-auto border-top border-secondary">
+    <div class="container">
+        <small>&copy; 2026 Fatih Alperen Taşğın. Tüm hakları saklıdır.</small>
+    </div>
+</footer>
+
+<!-- JS Kütüphaneleri -->
+<script src="https://unpkg.com/vue@3"></script>
+<script src="lib/js/bootstrap.bundle.min.js"></script>
+<script src="navbar-loader.js"></script>
+<script src="js/ilgi-api.js"></script>
+
+</body>
+</html>
