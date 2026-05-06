@@ -1,0 +1,116 @@
+<!--
+  ~ Copyright (c) 2026 FatEnta. Tüm hakları saklıdır.
+  -->
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Şehrim – Erzurum</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="lib/css/all.min.css" rel="stylesheet" />
+    <style>
+        .carousel-item img {
+            height: 500px;
+            object-fit: cover;
+        }
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="navbar-placeholder"></div>
+
+<div id="erzurumCarousel" class="carousel slide carousel-fade shadow" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#erzurumCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#erzurumCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#erzurumCarousel" data-bs-slide-to="2"></button>
+        <button type="button" data-bs-target="#erzurumCarousel" data-bs-slide-to="3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <a href="#cifte"><img src="img/erzurum-cifte-minare.jpg" class="d-block w-100" alt="Çifte Minareli Medrese" /></a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="display-6">Çifte Minareli Medrese</h5>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <a href="#palandoken"><img src="img/erzurum-palandoken.jpg" class="d-block w-100" alt="Palandöken Kayak Merkezi" /></a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="display-6">Palandöken Kayak Merkezi</h5>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <a href="#yakutiye"><img src="img/erzurum-yakutiye.jpg" class="d-block w-100" alt="Yakutiye Medresesi" /></a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="display-6">Yakutiye Medresesi</h5>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <a href="#tortum"><img src="img/erzurum-tortum.jpg" class="d-block w-100" alt="Tortum Şelalesi" /></a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="display-6">Tortum Şelalesi</h5>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#erzurumCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#erzurumCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<main class="container my-5 fade-in">
+    <h2 class="text-center mb-4 fw-bold">Erzurum</h2>
+    <p class="lead">
+        Erzurum, Doğu Anadolu Bölgesi’nin en büyük şehri olup yaklaşık <strong>760 bin nüfusa</strong> sahiptir.
+        Milli Mücadele'nin temellerinin atıldığı bu "Dadaşlar" şehri; tarihi eserleri, kış turizmi ve yöresel lezzetleri ile Türkiye'nin parlayan yıldızıdır.
+    </p>
+
+    <section id="cifte" class="my-5 p-4 border-start border-primary border-4 bg-white shadow-sm">
+        <h4><i class="fa-solid fa-archway me-2"></i> Çifte Minareli Medrese</h4>
+        <p>
+            Selçuklu mimarisinin şaheserlerinden biri olan Çifte Minareli Medrese, Erzurum'un sembolüdür.
+            13. yüzyılın sonlarında İlhanlılar döneminde inşa edildiği tahmin edilmektedir. Taş oymacılığındaki
+            ustalığı ve heybetli minareleri ile her yıl binlerce turisti ağırlamaktadır.
+        </p>
+    </section>
+
+    <section id="palandoken" class="my-5 p-4 border-start border-info border-4 bg-white shadow-sm">
+        <h4><i class="fa-solid fa-person-skiing me-2"></i> Palandöken Kayak Merkezi</h4>
+        <p>
+            Türkiye'nin en uzun ve en dik pistlerine sahip olan Palandöken, kış turizminin merkezidir.
+            3176 metre yüksekliğindeki zirvesiyle, kristal kar yapısı ve gece kayağı imkanlarıyla dünya standartlarında bir kayak deneyimi sunar.
+        </p>
+    </section>
+
+    <section id="yakutiye" class="my-5 p-4 border-start border-primary border-4 bg-white shadow-sm">
+        <h4><i class="fa-solid fa-mosque me-2"></i> Yakutiye Medresesi</h4>
+        <p>
+            1310 yılında Hoca Yakut Gazani tarafından yaptırılan bu yapı, Anadolu'daki kapalı avlulu medreselerin en büyüğüdür.
+            Günümüzde Türk-İslam Eserleri ve Etnografya Müzesi olarak hizmet vermektedir. Geometrik süslemeleriyle dikkat çeker.
+        </p>
+    </section>
+
+    <section id="tortum" class="my-5 p-4 border-start border-success border-4 bg-white shadow-sm">
+        <h4><i class="fa-solid fa-water me-2"></i> Tortum Şelalesi</h4>
+        <p>
+            Dünyanın en büyük şelalelerinden biri olan Tortum Şelalesi, 48 metre yükseklikten dökülmektedir.
+            Doğal güzelliği ve çevresindeki mesire alanları ile doğaseverlerin vazgeçilmez durağıdır.
+        </p>
+    </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="lib/js/bootstrap.bundle.min.js"></script>
+<script src="navbar-loader.js"></script>
+</body>
+</html>
