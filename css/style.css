@@ -220,3 +220,28 @@ body {
     color: #ffc107 !important; /* GS Sarısı */
     filter: drop-shadow(0 0 2px rgba(255, 193, 7, 0.5)); /* Hafif parlama efekti */
 }
+
+/* FatEnTa - Şehrim Sayfası Slider Düzenlemesi */
+
+/* Sadece bu slider içindeki resimleri hedef alalım (Specificity koruması) */
+#erzurumCarousel .carousel-item img,
+#konyaCarousel .carousel-item img,
+#carouselExampleDark .carousel-item img {
+    /* Resmin yüksekliğini sabitleyelim (İstediğin değere göre değiştirebilirsin, örn: 500px) */
+    height: 85vh !important; /* vh: Viewport Height. Ekran yüksekliğinin %60'ı kadar. */
+
+    /* En önemli kısım: Resmi yamultma, belirtilen alana sığacak şekilde merkezden kırp. */
+    object-fit: cover !important;
+
+    /* Resmin merkezini odak noktası yap */
+    object-position: center center;
+}
+
+/* Küçük ekranlar (Mobil) için yüksekliği biraz azaltalım */
+@media (max-width: 768px) {
+    #erzurumCarousel .carousel-item img,
+    #konyaCarousel .carousel-item img,
+    #carouselExampleDark .carousel-item img {
+        height: 40vh !important;
+    }
+}
