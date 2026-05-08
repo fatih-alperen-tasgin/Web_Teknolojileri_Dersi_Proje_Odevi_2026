@@ -1,9 +1,14 @@
+/* FatEnTa | Iletisim Denetleme Sistemi
+  Mühendislik Notu: Spesifik hata mesajlari ve gelismis dogrulama mantigi eklendi.
+*/
+
 const {createApp, ref} = Vue;
 
 createApp({
     setup() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+        // Form verilerini DOM üzerinden okuyan yardımcı fonksiyon (Native JS için)
         const readFormData = () => {
             const formEl = document.getElementById('iletisimFormu');
             if (!formEl) return null;
@@ -15,111 +20,78 @@ createApp({
                 konu: (data.get('konu') || '').toString().trim(),
                 mesaj: (data.get('mesaj') || '').toString().trim(),
                 cinsiyet: (data.get('cinsiyet') || '').toString().trim(),
-                sehir: (data.get('sehir') || '').toString().trim(),
                 onay: data.get('onay') !== null
             };
         };
 
+        // --- KRITIK GUNCELLEME: Spesifik Dogrulama ---
         const validateData = (data) => {
-            if (!data) {
-                return { ok: false, message: 'Form bulunamadı.' };
-            }
+            if (!data) return {ok: false, message: 'Form bulunamadı.'};
 
-            if (!data.ad || !data.email || !data.konu || !data.mesaj || !data.cinsiyet || !data.sehir) {
-                return { ok: false, message: 'Lütfen tüm alanları doldurun!' };
-            }
+            // Her alan için tek tek kontrol ve özel mesaj
+            if (!data.ad) return {ok: false, message: 'Lütfen ad ve soyadınızı giriniz.'};
+            if (!data.email) return {ok: false, message: 'E-posta adresi boş bırakılamaz.'};
+            if (!emailRegex.test(data.email)) return {ok: false, message: 'Girdiğiniz e-posta formatı geçersiz.'};
+            if (!data.konu) return {ok: false, message: 'Lütfen mesajınız için bir konu belirtin.'};
+            if (!data.mesaj) return {ok: false, message: 'Mesaj metni alanı boş olamaz.'};
+            if (!data.cinsiyet) return {ok: false, message: 'Lütfen cinsiyet seçimi yapınız.'};
+            if (!data.onay) return {ok: false, message: 'Verilerinizin işlenmesi için onay vermelisiniz.'};
 
-            if (!emailRegex.test(data.email)) {
-                return { ok: false, message: 'Geçersiz e-posta formatı!' };
-            }
-
-            if (!data.onay) {
-                return { ok: false, message: 'Lütfen verilerinizin işlenmesini onaylayın!' };
-            }
-
-            return { ok: true, message: 'Kontrol başarılı.' };
+            return {ok: true, message: 'Kontrol başarılı.'};
         };
 
-        // 1. Tüm form elemanlarını içeren reaktif nesne
         const form = ref({
-            ad: '',
-            email: '',
-            konu: '',
-            mesaj: '',
-            cinsiyet: '', // Radio için
-            sehir: '',    // Select için
-            onay: false   // Checkbox için
+            ad: '', email: '', konu: '', mesaj: '', cinsiyet: '', onay: false
         });
 
-        // 2. Formu temizleme fonksiyonu (yeni alanlar eklendi)
         const temizle = () => {
-            form.value = {
-                ad: '',
-                email: '',
-                konu: '',
-                mesaj: '',
-                cinsiyet: '',
-                sehir: '',
-                onay: false
-            };
+            if (confirm("Formu temizlemek istediğinize emin misiniz?")) {
+                form.value = {ad: '', email: '', konu: '', mesaj: '', cinsiyet: '', onay: false};
+            }
         };
 
-        // 3. Vue.js ile Denetleme Fonksiyonu
+        // Vue.js Butonu için
         const vueDenetle = () => {
             const result = validateData(form.value);
             if (!result.ok) {
                 alert(`${result.message} (Vue.js Denetimi)`);
                 return false;
             }
-
-            alert('Form Vue.js tarafından başarıyla denetlendi. PHP ile gönderim hazırlanıyor...');
+            alert('Tebrikler! Vue.js denetimi başarılı.');
             return true;
         };
 
-        // 4. Native JavaScript ile Denetleme Fonksiyonu
+        // Native JS Butonu için
         const jsDenetle = () => {
             const result = validateData(readFormData());
-            alert(result.ok ? 'Form Native JS tarafından başarıyla denetlendi.' : `${result.message} (Native JS Denetimi)`);
+            alert(result.ok ? 'Başarılı: Native JS denetimi geçti.' : `${result.message} (Native JS Denetimi)`);
             return result.ok;
         };
 
         const gonder = () => {
+            // Önce Vue denetimini yap
             if (!vueDenetle()) return;
 
+            // Session tabanlı CSRF: token zaten PHP'den form içine yerleştirilmiş
+            // Başka bir işlem yapılmasına gerek yok, form doğal olarak gönderiliyor
+
+            // Formu PHP'ye fırlat
             document.getElementById('iletisimFormu')?.submit();
         };
 
-        const jsBtn = document.getElementById('js-denetle-btn');
-        if (jsBtn) {
-            jsBtn.addEventListener('click', jsDenetle);
-        }
-
-        // CSRF token (double-submit) oluştur ve form gizli alanına yaz
-        const ensureCsrf = () => {
-            try {
-                const existing = document.cookie.split('; ').find(row => row.startsWith('csrf_token='));
-                let token = existing ? existing.split('=')[1] : null;
-                if (!token) {
-                    // basit rastgele token
-                    token = crypto && crypto.getRandomValues ? Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b=>b.toString(16).padStart(2,'0')).join('') : (Date.now().toString(16) + Math.random().toString(16).slice(2));
-                    document.cookie = `csrf_token=${token}; path=/`;
-                }
-                const tokenInput = document.getElementById('csrf_token');
-                if (tokenInput) tokenInput.value = token;
-            } catch (e) {
-                // tarayıcı desteklemiyorsa sessizce geç
-                console.warn('CSRF token yaratilirken hata:', e);
+        // JS Butonuna event listener ekle
+        // DOM yüklendikten sonra çalışması için küçük bir bekleme
+        setTimeout(() => {
+            const jsBtn = document.getElementById('js-denetle-btn');
+            if (jsBtn) {
+                jsBtn.onclick = jsDenetle;
             }
-        };
+        }, 100);
 
-        ensureCsrf();
+        // iletisim.js: Session tabanlı CSRF Token
+        // Token zaten PHP'nin iletisim.php sayfasından form içine yerleştirilmiş
+        // Client-side token üretimi artık gerekli değil
 
-        return {
-            form,
-            gonder,
-            temizle,
-            vueDenetle // Butondan tetiklemek için geri döndürüyoruz
-        };
+        return {form, gonder, temizle, vueDenetle};
     }
-
 }).mount('#app');

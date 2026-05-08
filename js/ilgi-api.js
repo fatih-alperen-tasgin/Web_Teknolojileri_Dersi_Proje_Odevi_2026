@@ -39,7 +39,8 @@ function createCard(article) {
     });
 
     const body = document.createElement("div");
-    body.className = "card-body d-flex flex-column text-dark";
+        // Let CSS determine text color based on page theme; avoid forcing text-dark/text-white here
+    body.className = "card-body d-flex flex-column";
 
     const title = document.createElement("h5");
     title.className = "card-title fw-bold";
@@ -100,17 +101,20 @@ window.addEventListener("DOMContentLoaded", async () => {
         const data = await response.json();
         if (loadingDiv) loadingDiv.remove();
 
-        const guvenilirKaynaklar = ["fanatik", "ntvspor", "goal", "beinsports", "aspor", "trtspor"];
+        // API'den dönen sonuçları daha esnek şekilde işliyoruz:
+        // - Öncelikle results dizisini al
+        // - Başlık içermeyenleri eliyoruz
+        // - Görsel yoksa placeholder kullanıyoruz (görsel zorunlu değil)
         const results = Array.isArray(data.results) ? data.results : [];
 
-        const filtrelenmisHaberler = results.filter((haber) => {
-            const source = (haber.source_id || "").toLowerCase();
-            const kaynakUygun = guvenilirKaynaklar.includes(source);
-            const gorselVar = typeof haber.image_url === "string" && haber.image_url.startsWith("http");
-            return kaynakUygun && gorselVar;
-        });
+        const temizlenmis = results
+            .filter(h => h && (h.title || h.description))
+            .map(h => ({
+                ...h,
+                image_url: (typeof h.image_url === 'string' && h.image_url.startsWith('http')) ? h.image_url : null
+            }));
 
-        const sonListe = filtrelenmisHaberler.length > 0 ? filtrelenmisHaberler : results;
+        const sonListe = temizlenmis;
 
         if (sonListe.length === 0) {
             haberDiv.innerHTML = "<p class='text-danger text-center w-100'>Uygun haber kaynagi bulunamadi.</p>";

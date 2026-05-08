@@ -1,6 +1,6 @@
 /* 1. DEĞİŞKENLER VE RENK PALETİ */
 :root {
-    --ana-renk: rgb(28, 37, 51);
+    --ana-renk: rgb(36, 48, 63); /* slightly lightened for better contrast on dark pages */
     --siyah: rgb(33, 37, 41);
     --gs-sari: rgb(255, 193, 7);
     --beyaz: #ffffff;
@@ -219,6 +219,39 @@ body {
 .text-warning {
     color: #ffc107 !important; /* GS Sarısı */
     filter: drop-shadow(0 0 2px rgba(255, 193, 7, 0.5)); /* Hafif parlama efekti */
+}
+
+.auth-card {
+    max-width: 460px;
+    width: 100%;
+}
+
+/* Utility helpers to replace inline styles */
+.min-vh-80 { min-height: 80vh !important; }
+.max-w-400 { max-width: 400px !important; width: 100% !important; }
+.z-2 { z-index: 2 !important; }
+.z-1 { z-index: 1 !important; }
+.lead-centered { max-width: 700px; margin-left: auto; margin-right: auto; }
+.img-cover { object-fit: cover !important; }
+.min-h-400 { min-height: 400px !important; }
+.max-w-180 { max-width: 180px !important; }
+.progress-sm { height: 8px !important; }
+.link-highlight { color: #ffd966 !important; }
+.server-error-body { background: #1c2533; color: #fff; padding: 2rem; font-family: sans-serif; }
+.bg-ana .card {
+    background-color: rgba(255,255,255,0.03) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+}
+.bg-ana .card .card-title,
+.bg-ana .card .card-text,
+.bg-ana .card .small {
+    color: rgba(255,255,255,0.9) !important;
+}
+/* Spinner sizing used in several pages */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
 }
 
 /* FatEnTa - Şehrim Sayfası Slider Düzenlemesi */

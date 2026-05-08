@@ -1,16 +1,29 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Session tabanlı CSRF için session'ı başlatıyoruz
+session_start();
+
 header('Content-Type: text/html; charset=UTF-8');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Basit CSRF double-submit kontrolü: cookie ile POST içindeki token eşleşmeli
-    $postToken = $_POST['csrf_token'] ?? '';
-    $cookieToken = $_COOKIE['csrf_token'] ?? '';
-    if (empty($postToken) || empty($cookieToken) || !hash_equals((string)$cookieToken, (string)$postToken)) {
-        // Geçersiz token - güvenlik nedeni ile işlemi sonlandır
+    // 1. Session tabanlı CSRF Kontrolü
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'] ?? '', $_POST['csrf_token'])) {
+        // Güvenlik gereği detay vermiyoruz, sadece log tutuyoruz
+        error_log("Geçersiz CSRF denemesi: " . $_SERVER['REMOTE_ADDR']);
         http_response_code(400);
-        echo '<!doctype html><html><head><meta charset="utf-8"><title>Geçersiz İstek</title></head><body style="background:#1c2533;color:#fff;padding:2rem;"><h1>Geçersiz veya eksik güvenlik tokeni.</h1><p>Lütfen formu tekrar doldurup gönderin.</p><p><a href="../iletisim.html" style="color:#ffd966;">Geri dön</a></p></body></html>';
+        echo '<body class="server-error-body">';
+        echo '<h1>Güvenlik Hatası</h1>';
+        echo '<p>Formun süresi dolmuş olabilir. Lütfen sayfayı yenileyip tekrar deneyin.</p>';
+        echo '<a href="../iletisim.php" class="link-highlight">Geri Dön ve Tekrar Dene</a>';
+        echo '</body>';
         exit();
     }
+
+    // 2. Token kontrol geçti, session'ı yenile (Token Fixation saldırısını önle)
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+
     $safe = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
 
     $ad = $safe($_POST['ad'] ?? 'Belirtilmedi');
@@ -23,10 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $allowedCinsiyet = ['Erkek', 'Kadın'];
     $cinsiyetRaw = (string)($_POST['cinsiyet'] ?? '');
     $cinsiyet = in_array($cinsiyetRaw, $allowedCinsiyet, true) ? $safe($cinsiyetRaw) : 'Belirtilmedi';
-
-    $allowedSehir = ['Sakarya', 'Konya'];
-    $sehirRaw = (string)($_POST['sehir'] ?? '');
-    $sehir = in_array($sehirRaw, $allowedSehir, true) ? $safe($sehirRaw) : 'Belirtilmedi';
 
     $onay = isset($_POST['onay']) ? 'Kabul Edildi' : 'Kabul Edilmedi';
 ?>
@@ -50,12 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <li class="nav-item"><a class="nav-link" href="../index.html">Hakkında</a></li>
         <li class="nav-item"><a class="nav-link" href="../cv.html">CV</a></li>
         <li class="nav-item"><a class="nav-link" href="../sehir.html">Şehrim</a></li>
-        <li class="nav-item"><a class="nav-link active" href="../iletisim.html">İletişim</a></li>
+        <li class="nav-item"><a class="nav-link active" href="../iletisim.php">İletişim</a></li>
         <li class="nav-item"><a class="nav-link" href="../takimimiz.html">Takımımız</a></li>
         <li class="nav-item"><a class="nav-link" href="../ilgi.html">İlgi Alanım</a></li>
       </ul>
       <div class="ms-auto">
-        <a href="../login.html" class="btn btn-outline-warning ms-3"><i class="fa fa-sign-in-alt"></i> Giriş Yap</a>
+        <a href="../login.php" class="btn btn-outline-warning ms-3"><i class="fa fa-sign-in-alt"></i> Giriş Yap</a>
       </div>
     </div>
   </div>
@@ -73,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <li class="list-group-item p-3"><strong>Ad Soyad:</strong> <?php echo $ad; ?></li>
                     <li class="list-group-item p-3"><strong>E-posta:</strong> <?php echo $email; ?></li>
                     <li class="list-group-item p-3"><strong>Cinsiyet:</strong> <?php echo $cinsiyet; ?></li>
-                    <li class="list-group-item p-3"><strong>Şehir:</strong> <?php echo $sehir; ?></li>
                     <li class="list-group-item p-3"><strong>Konu:</strong> <?php echo $konu; ?></li>
                     <li class="list-group-item p-3"><strong>Bilgilendirme Onayı:</strong> <?php echo $onay; ?></li>
                     <li class="list-group-item p-3">
@@ -83,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </ul>
             </div>
             <div class="text-center mt-5">
-                <a href="../iletisim.html" class="btn btn-outline-light px-5 py-2 rounded-pill">Geri Dön</a>
+                <a href="../iletisim.php" class="btn btn-outline-light px-5 py-2 rounded-pill">Geri Dön</a>
             </div>
         </div>
     </div>
@@ -98,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </html>
 <?php
 } else {
-    header("Location: ../iletisim.html");
+    header("Location: ../iletisim.php");
     exit();
 }
 ?>

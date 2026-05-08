@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 1. GİRİŞ EFEKTİ
     setTimeout(() => { document.body.classList.add("loaded"); }, 100);
 
+
     // 2. NAVBAR YÜKLEME
     fetch('navbar.html')
         .then(response => {
@@ -14,24 +15,29 @@ document.addEventListener("DOMContentLoaded", function() {
             navbarPlaceholder.innerHTML = data;
 
             // Giriş Durumu Kontrolü
-            const girisButonu = document.querySelector(".ms-auto a[href='login.html']");
+            // Navbar'daki buton login.php olarak tanımlı; localStorage anahtarı ise server tarafından
+            // `userDisplay` olarak set ediliyor (login_islem.php tarafından). Buradan uyumlu şekilde çekiyoruz.
+            const girisButonu = document.querySelector(".ms-auto a[href='login.php']");
             const isLoggedIn = localStorage.getItem('isLoggedIn');
-            const username = localStorage.getItem('username');
+            const username = localStorage.getItem('userDisplay');
 
             if (isLoggedIn === 'true' && girisButonu) {
                 girisButonu.parentElement.innerHTML = `
                     <div class="dropdown">
                         <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            <i class="fa fa-user me-1"></i> ${username}
+                            <i class="fa fa-user me-1"></i> ${username || 'Kullanıcı'}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="#" id="logoutLink">Çıkış Yap</a></li>
                         </ul>
                     </div>`;
-                document.getElementById('logoutLink').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    logout();
-                });
+                const logoutEl = document.getElementById('logoutLink');
+                if (logoutEl) {
+                    logoutEl.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        logout();
+                    });
+                }
             }
 
             // Aktif Sayfa Belirleme
@@ -74,6 +80,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function logout() {
     localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('username');
+    localStorage.removeItem('userDisplay');
     window.location.href = 'index.html';
 }

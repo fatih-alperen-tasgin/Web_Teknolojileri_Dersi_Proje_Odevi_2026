@@ -1,3 +1,25 @@
+<?php
+// 1. Önce çerez ayarlarını tanımla
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'domain' => '',
+    'secure' => false, // Localhost (Wamp) üzerinde olduğun için false
+    'httponly' => true,
+    'samesite' => 'Strict',
+]);
+
+// 2. Sonra oturumu başlat
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// 3. CSRF Token üretimi ve diğer mantıksal işlemler
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+?>
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -5,19 +27,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>FatEnTa | İletişim</title>
 
-    <style>
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgb(28, 37, 51) !important;
-            z-index: 9999; display: flex; justify-content: center; align-items: center;
-        }
-        body { background-color: rgb(28, 37, 51); margin: 0; }
-    </style>
-
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="lib/css/bootstrap.min.css">
 </head>
-<body>
+<body class="text-white">
 
 <div id="preloader">
     <div class="spinner-border text-warning" role="status"></div>
@@ -35,10 +48,11 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card border-0 shadow-lg rounded-4 p-4">
-                <form id="iletisimFormu" action="php/iletisim.php" method="POST" class="row g-4" @submit.prevent="gonder">
+                <form id="iletisimFormu" action="php/iletisim_islem.php" method="POST" class="row g-4" @submit.prevent="gonder">
 
-                    <!-- CSRF token (double-submit) -->
-                    <input type="hidden" name="csrf_token" id="csrf_token" value="">
+                    <!-- CSRF token (Session tabanlı) -->
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Ad Soyad</label>
                         <input type="text" name="ad" class="form-control form-control-lg" v-model="form.ad" required />
@@ -52,24 +66,32 @@
                         <input type="text" name="konu" class="form-control form-control-lg" v-model="form.konu" required />
                     </div>
                     <div class="col-12">
+                        <label class="form-label fw-bold">Mesaj Türü</label>
+                        <select name="konu_tipi" class="form-select form-select-lg" v-model="form.konuTipi" required>
+                            <option value="">Seciniz</option>
+                            <option value="Proje">Proje</option>
+                            <option value="Staj">Staj</option>
+                            <option value="Diger">Diger</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
                         <label class="form-label fw-bold">Mesaj</label>
                         <textarea name="mesaj" class="form-control form-control-lg" v-model="form.mesaj" rows="5" required></textarea>
                     </div>
-                    <!-- Mesaj kutusundan hemen sonra, butonlardan önce ekleyebilirsin -->
-                    <div class="col-md-6">
+
+                    <div class="col-md-12">
                         <label class="form-label fw-bold">Cinsiyet</label><br>
-                        <input type="radio" name="cinsiyet" v-model="form.cinsiyet" value="Erkek"> Erkek
-                        <input type="radio" name="cinsiyet" v-model="form.cinsiyet" value="Kadın" class="ms-2"> Kadın
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="cinsiyet" v-model="form.cinsiyet" value="Erkek" class="form-check-input">
+                            <label class="form-check-label">Erkek</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="cinsiyet" v-model="form.cinsiyet" value="Kadın" class="form-check-input">
+                            <label class="form-check-label">Kadın</label>
+                        </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label fw-bold">Şehir</label>
-                        <select name="sehir" class="form-select" v-model="form.sehir">
-                            <option value="">Seçiniz</option>
-                            <option value="Sakarya">Sakarya</option>
-                            <option value="Konya">Konya</option>
-                        </select>
-                    </div>
+
 
                     <div class="col-12">
                         <input type="checkbox" name="onay" v-model="form.onay"> Verilerimin işlenmesini onaylıyorum.
@@ -122,3 +144,4 @@
 </script>
 </body>
 </html>
+
