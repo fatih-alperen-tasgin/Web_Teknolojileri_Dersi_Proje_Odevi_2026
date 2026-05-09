@@ -1,5 +1,5 @@
-const apiKey = "pub_db90c0b2fb864522b3f272cbff4ec12e";
-const apiUrl = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=tr&q=galatasaray`;
+// Client-side feed loader that calls a server-side proxy at php/get_news.php
+const apiUrl = 'php/get_news.php';
 
 const PLACEHOLDER_IMAGE =
     "data:image/svg+xml;utf8," +
@@ -39,7 +39,6 @@ function createCard(article) {
     });
 
     const body = document.createElement("div");
-        // Let CSS determine text color based on page theme; avoid forcing text-dark/text-white here
     body.className = "card-body d-flex flex-column";
 
     const title = document.createElement("h5");
@@ -94,40 +93,38 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const response = await fetch(apiUrl);
-        if (!response.ok) {
-            throw new Error(`API yanit kodu: ${response.status}`);
+        // read raw text to tolerate stray bytes/BOM from server
+        const raw = await response.text();
+        let data;
+        try {
+            const clean = raw.replace(/^(\uFEFF|\xEF\xBB\xBF)/, '').trim();
+            data = JSON.parse(clean);
+        } catch (parseErr) {
+            console.error('get_news: JSON parse error, raw response:', raw);
+            throw new Error('Sunucudan gelen veri JSON olarak parse edilemedi. Konsolu kontrol et.');
         }
 
-        const data = await response.json();
+        if (!response.ok) {
+            const errMsg = data && data.error ? data.error : `Sunucu yanit kodu: ${response.status}`;
+            throw new Error(errMsg);
+        }
         if (loadingDiv) loadingDiv.remove();
 
-        // API'den dönen sonuçları daha esnek şekilde işliyoruz:
-        // - Öncelikle results dizisini al
-        // - Başlık içermeyenleri eliyoruz
-        // - Görsel yoksa placeholder kullanıyoruz (görsel zorunlu değil)
         const results = Array.isArray(data.results) ? data.results : [];
-
-        const temizlenmis = results
-            .filter(h => h && (h.title || h.description))
-            .map(h => ({
-                ...h,
-                image_url: (typeof h.image_url === 'string' && h.image_url.startsWith('http')) ? h.image_url : null
-            }));
-
-        const sonListe = temizlenmis;
-
-        if (sonListe.length === 0) {
+        if (results.length === 0) {
             haberDiv.innerHTML = "<p class='text-danger text-center w-100'>Uygun haber kaynagi bulunamadi.</p>";
             return;
         }
 
         haberDiv.innerHTML = "";
-        sonListe.slice(0, 9).forEach((haber) => {
+        results.slice(0, 9).forEach((haber) => {
             haberDiv.appendChild(createCard(haber));
         });
+
     } catch (error) {
         if (loadingDiv) loadingDiv.remove();
-        haberDiv.innerHTML = "<p class='text-danger text-center w-100'>Haberler yuklenirken bir ag hatasi olustu.</p>";
-        console.error("API hatasi:", error);
+        const msg = error && error.message ? error.message : 'Haberler yuklenirken bir hata olustu.';
+        haberDiv.innerHTML = `<p class='text-danger text-center w-100'>${msg}</p>`;
+        console.error("Hata:", error);
     }
 });

@@ -1,43 +1,24 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require_once 'config.php';
 
-// Session tabanlı CSRF için session'ı başlatıyoruz
-session_start();
+// İŞTE EKSİK OLAN IF BLOĞU BURADA BAŞLIYOR:
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-header('Content-Type: text/html; charset=UTF-8');
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 1. Session tabanlı CSRF Kontrolü
-    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'] ?? '', $_POST['csrf_token'])) {
-        // Güvenlik gereği detay vermiyoruz, sadece log tutuyoruz
-        error_log("Geçersiz CSRF denemesi: " . $_SERVER['REMOTE_ADDR']);
-        http_response_code(400);
-        echo '<body class="server-error-body">';
-        echo '<h1>Güvenlik Hatası</h1>';
-        echo '<p>Formun süresi dolmuş olabilir. Lütfen sayfayı yenileyip tekrar deneyin.</p>';
-        echo '<a href="../iletisim.php" class="link-highlight">Geri Dön ve Tekrar Dene</a>';
-        echo '</body>';
-        exit();
+    // 1. CSRF Güvenlik Kontrolü
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die("Güvenlik Hatası: Geçersiz Token!");
     }
 
-    // 2. Token kontrol geçti, session'ı yenile (Token Fixation saldırısını önle)
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-
-    $safe = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
-
-    $ad = $safe($_POST['ad'] ?? 'Belirtilmedi');
-    $konu = $safe($_POST['konu'] ?? 'Belirtilmedi');
-    $mesaj = $safe($_POST['mesaj'] ?? 'Belirtilmedi');
-
-    $emailRaw = trim((string)($_POST['email'] ?? ''));
-    $email = filter_var($emailRaw, FILTER_VALIDATE_EMAIL) ? $safe($emailRaw) : 'Belirtilmedi';
-
-    $allowedCinsiyet = ['Erkek', 'Kadın'];
-    $cinsiyetRaw = (string)($_POST['cinsiyet'] ?? '');
-    $cinsiyet = in_array($cinsiyetRaw, $allowedCinsiyet, true) ? $safe($cinsiyetRaw) : 'Belirtilmedi';
-
+    // 2. Verileri Değişkenlere Atama ve XSS Koruması
+    // (Aşağıdaki HTML içinde kullandığın $ad, $email gibi değişkenleri burada tanımlıyoruz)
+    $ad = htmlspecialchars($_POST['ad'] ?? '', ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES, 'UTF-8');
+    $konu = htmlspecialchars($_POST['konu'] ?? '', ENT_QUOTES, 'UTF-8');
+    $mesaj = htmlspecialchars($_POST['mesaj'] ?? '', ENT_QUOTES, 'UTF-8');
+    $cinsiyet = htmlspecialchars($_POST['cinsiyet'] ?? 'Belirtilmedi', ENT_QUOTES, 'UTF-8');
     $onay = isset($_POST['onay']) ? 'Kabul Edildi' : 'Kabul Edilmedi';
+
+// PHP bloğunu burada kapatıyoruz ki aşağıda HTML devam edebilsin
 ?>
 <!DOCTYPE html>
 <html lang="tr">
@@ -47,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>FatEnTa | Gönderilen Bilgiler</title>
     <link href="../css/style.css" rel="stylesheet"/>
     <link href="../lib/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link href="../lib/css/all.min.css" rel="stylesheet" />
 </head>
 <body class="text-white">
 

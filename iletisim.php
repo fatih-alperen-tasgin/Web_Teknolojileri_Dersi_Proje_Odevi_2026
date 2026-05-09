@@ -1,24 +1,4 @@
-<?php
-// 1. Önce çerez ayarlarını tanımla
-session_set_cookie_params([
-    'lifetime' => 0,
-    'path' => '/',
-    'domain' => '',
-    'secure' => false, // Localhost (Wamp) üzerinde olduğun için false
-    'httponly' => true,
-    'samesite' => 'Strict',
-]);
-
-// 2. Sonra oturumu başlat
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// 3. CSRF Token üretimi ve diğer mantıksal işlemler
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-?>
+<?php require_once 'php/config.php'; ?>
 
 <!DOCTYPE html>
 <html lang="tr">
@@ -29,6 +9,7 @@ if (empty($_SESSION['csrf_token'])) {
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/css/all.min.css">
 </head>
 <body class="text-white">
 
@@ -64,15 +45,6 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="col-12">
                         <label class="form-label fw-bold">Konu</label>
                         <input type="text" name="konu" class="form-control form-control-lg" v-model="form.konu" required />
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label fw-bold">Mesaj Türü</label>
-                        <select name="konu_tipi" class="form-select form-select-lg" v-model="form.konuTipi" required>
-                            <option value="">Seciniz</option>
-                            <option value="Proje">Proje</option>
-                            <option value="Staj">Staj</option>
-                            <option value="Diger">Diger</option>
-                        </select>
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-bold">Mesaj</label>
@@ -129,7 +101,7 @@ if (empty($_SESSION['csrf_token'])) {
 <div id="footer-placeholder"></div>
 
 <!-- Kütüphaneler -->
-<script src="https://unpkg.com/vue@3"></script>
+<script src="lib/js/vue.global.js"></script>
 <script src="lib/js/bootstrap.bundle.min.js"></script>
 <script src="navbar-loader.js"></script>
 <script src="js/iletisim.js"></script>
