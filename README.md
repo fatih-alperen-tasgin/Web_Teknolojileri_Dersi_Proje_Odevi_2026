@@ -27,4 +27,4 @@ Proje, sürdürülebilir bir dosya yapısı üzerine inşa edilmiştir. Kişisel
 
 ## 📝 Mühendislik Notları
 
-Proje geliştirme sürecinde, kodun sadece çalışmasına değil, okunabilirliğine ve bakım maliyetinin düşük olmasına (maintainability) odaklanılmıştır. Gereksiz yorum satırlarından arındırılmış "Clean Code" versiyonu ana dizinde, detaylı eğitim notları ise `/notlar` klasöründe yer almaktadır.
+Proje geliştirme sürecinde, kodun sadece çalışmasına değil, okunabilirliğine ve bakım maliyetinin düşük olmasına (maintainability) odaklanılmıştır.
