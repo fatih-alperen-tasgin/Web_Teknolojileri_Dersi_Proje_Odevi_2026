@@ -21,7 +21,7 @@ Proje, sürdürülebilir bir dosya yapısı üzerine inşa edilmiştir. Kişisel
 
 ## ⚙️ Kurulum ve Yayına Alma
 
-1. Projeyi klonlayın: `git clone https://github.com/fatih-alperen-tasgin/repository-adi.git`
+1. Projeyi klonlayın: `git clone https://github.com/fatih-alperen-tasgin/Web_Teknolojileri_Dersi_Proje_Odevi_2026.git`
 2. WebStorm üzerinden `index.html` dosyasını bir yerel sunucu ile çalıştırın.
 3. Canlı önizleme için GitHub Pages veya Vercel kullanılmıştır.
 
