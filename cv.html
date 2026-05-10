@@ -1,26 +1,23 @@
-<!--
-  ~ Copyright (c) 2026 FatEnta. Tüm hakları saklıdır.
-  -->
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>FatEnTa | Özgeçmiş</title>
-    <!-- Stil Dosyaları -->
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="lib/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/css/all.min.css">
 
     <style>
-        /* Senin orijinal preloader ve arka plan ayarların */
+        /* [UX_OPTIMIZATION]: Dinamik icerik yuklenirken olusabilecek 'layout shift' etkisini engellemek icin preloader maskesi. */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgb(28, 37, 51) !important;
             z-index: 9999; display: flex; justify-content: center; align-items: center;
         }
-        body { background-color: #f8f9fa; margin: 0; } /* Orijinal açık renk teman */
+        /* [THEME_CONFIG]: Sayfa genelinde tutarli bir okunabilirlik icin varsayilan Bootstrap arka plani. */
+        body { background-color: #f8f9fa; margin: 0; }
     </style>
 </head>
 <body>
@@ -29,17 +26,13 @@
     <div class="spinner-border text-warning" role="status"></div>
 </div>
 
-<!-- Header ve Navbar -->
 <header id="navbar-placeholder"></header>
 
-<!-- Ana İçerik: Semantic HTML Etiketi Kullanıldı -->
 <main class="container my-5">
     <div class="row g-5">
 
-        <!-- Sol Kolon: Eğitim ve Projeler -->
         <article class="col-lg-8">
 
-            <!-- Eğitim Bölümü: Section Etiketi -->
             <section id="egitim" class="mb-5">
                 <h2 class="mb-4 pb-2 border-bottom"><i class="fa-solid fa-graduation-cap me-2 text-primary"></i> Eğitim</h2>
                 <div class="table-responsive">
@@ -67,11 +60,9 @@
                 </div>
             </section>
 
-            <!-- Projeler Bölümü -->
             <section id="projeler" class="mb-5">
                 <h2 class="mb-4 pb-2 border-bottom"><i class="fa-solid fa-code-branch me-2 text-primary"></i> Öne Çıkan Projeler</h2>
 
-                <!-- Her proje bir article olarak semantik hale getirildi -->
                 <article class="card mb-3 border-0 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title fw-bold text-dark">NDP Çizim Uygulaması</h5>
@@ -90,7 +81,6 @@
             </section>
         </article>
 
-        <!-- Sağ Kolon: Aside Etiketi (Yan İçerik) -->
         <aside class="col-lg-4">
             <section class="mb-5 p-4 bg-white rounded-4 shadow-sm border">
                 <h3 class="h5 fw-bold mb-4 text-dark border-bottom pb-2">Teknik Yetkinlikler</h3>
@@ -105,22 +95,21 @@
                 <div class="mb-3">
                     <div class="d-flex justify-content-between mb-1 small fw-bold"><span>HTML / CSS / JS</span><span>60%</span></div>
                     <div class="progress progress-sm">
-                        <div class="progress-bar bg-success w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <h4 class="h6 fw-bold mb-3 text-dark">Araçlar</h4>
                     <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">VS Code</span>
+                        <span class="badge bg-light text-dark border">WebStorm</span>
                         <span class="badge bg-light text-dark border">Visual Studio</span>
                         <span class="badge bg-light text-dark border">Git</span>
                         <span class="badge bg-light text-dark border">WampServer</span>
-
                     </div>
                 </div>
             </section>
-            <!-- GitHub ve Geliştirici Araçları Bölümü -->
+
             <section class="mt-4 p-4 bg-white rounded-4 shadow-sm border">
                 <h3 class="h5 fw-bold mb-3 text-dark">
                     <i class="fa-brands fa-github me-2 text-primary"></i> Versiyon Kontrol
@@ -129,16 +118,6 @@
                     Projelerimi GitHub üzerinde yönetiyor ve modern AI araçlarını geliştirme süreçlerime entegre ediyorum.
                 </p>
 
-                <div class="mb-3">
-                    <h4 class="h6 fw-bold mb-2 small text-dark">Kullanılan Teknolojiler:</h4>
-                    <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">Git / GitHub</span>
-                        <span class="badge bg-light text-dark border">GitHub Copilot</span>
-                        <span class="badge bg-light text-dark border">Inno Setup</span>
-                    </div>
-                </div>
-
-                <!-- GitHub Profil Linki -->
                 <div class="d-grid mt-3">
                     <a href="https://github.com/fatih-alperen-tasgin" target="_blank" class="btn btn-sm btn-outline-dark rounded-pill">
                         <i class="fa-brands fa-github me-1"></i> Profilimi Görüntüle
@@ -151,8 +130,17 @@
 
 <div id="footer-placeholder"></div>
 
-<!-- Scriptler -->
 <script src="lib/js/bootstrap.bundle.min.js"></script>
 <script src="navbar-loader.js"></script>
+<script>
+    // [LOGIC_UX]: Sayfa tamamen render edildiginde (resimler dahil) preloader'i DOM'dan sakla.
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        if(preloader) {
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 500);
+        }
+    });
+</script>
 </body>
 </html>

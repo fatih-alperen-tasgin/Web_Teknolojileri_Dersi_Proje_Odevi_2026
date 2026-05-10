@@ -15,17 +15,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     if (!emailRegex.test(kullanici)) {
         alert("Lütfen geçerli bir e-posta formatı giriniz!");
         event.preventDefault();
-        return; // Hata durumunda fonksiyonu burada kesmeliyiz
+        return;
     }
-
-    // --- MÜHENDİSLİK DOKUNUŞU ---
-    // Kontrollerden geçtiysek görsel geri bildirimi başlatıyoruz
-    // Kullanıcıya bir işlem yapıldığını hissettiriyoruz.
     btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Kontrol Ediliyor...';
-
-    // Dikkat: btn.disabled = true; satırı bazen formun POST verilerini
-    // göndermesini engelleyebilir (bazı tarayıcılar disabled butonun verisini göndermez).
-    // Bunun yerine butonu tıklanamaz yapmak için CSS kullanmak daha güvenlidir:
     btn.style.pointerEvents = 'none';
     btn.style.opacity = '0.7';
 });

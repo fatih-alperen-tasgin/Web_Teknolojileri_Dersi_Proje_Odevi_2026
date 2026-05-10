@@ -17,7 +17,6 @@
     <div class="spinner-border text-warning" role="status"></div>
 </div>
 
-<!-- Navbar buraya yüklenecek -->
 <div id="navbar-placeholder"></div>
 
 <div id="app" class="container my-5">
@@ -70,7 +69,6 @@
                     </div>
 
                     <div class="col-12 text-center mt-5">
-                        <!-- Denetleme Grubu: Ödevin "Ayrı Buton" Kuralını Şıklaştırır -->
                         <div class="btn-group shadow-sm me-3" role="group" aria-label="Denetleme Butonları">
                             <button type="button" id="js-denetle-btn" class="btn btn-outline-info px-4 fw-bold">
                                 <i class="fa-brands fa-js me-2"></i>JS Kontrolü
@@ -87,7 +85,7 @@
 
                         <!-- Temizleme -->
                         <div class="mt-3">
-                            <button type="button" class="btn btn-link text-secondary text-decoration-none" @click="temizle">
+                            <button type="button" class="btn btn-link btn-outline-warning text-decoration-none" @click="temizle">
                                 <i class="fa-solid fa-eraser me-1"></i>Formu Temizle
                             </button>
                         </div>

@@ -1,4 +1,4 @@
-// Client-side feed loader that calls a server-side proxy at php/get_news.php
+// php/get_news.php adresindeki sunucu tarafı proxy'yi çağıran istemci tarafı haber yükleyici
 const apiUrl = 'php/get_news.php';
 
 const PLACEHOLDER_IMAGE =
@@ -93,21 +93,25 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const response = await fetch(apiUrl);
-        // read raw text to tolerate stray bytes/BOM from server
         const raw = await response.text();
-        let data;
-        try {
-            const clean = raw.replace(/^(\uFEFF|\xEF\xBB\xBF)/, '').trim();
-            data = JSON.parse(clean);
-        } catch (parseErr) {
-            console.error('get_news: JSON parse error, raw response:', raw);
-            throw new Error('Sunucudan gelen veri JSON olarak parse edilemedi. Konsolu kontrol et.');
-        }
 
         if (!response.ok) {
-            const errMsg = data && data.error ? data.error : `Sunucu yanit kodu: ${response.status}`;
-            throw new Error(errMsg);
+            if (loadingDiv) loadingDiv.remove();
+            haberDiv.innerHTML = `<p class='text-danger text-center w-100'>Sunucu yanit kodu: ${response.status}</p>`;
+            return;
         }
+
+        let data;
+        try {
+            const clean = raw.replace(/^(\uFEFF|\xEF\xBB\xBF)/, "").trim();
+            data = JSON.parse(clean);
+        } catch {
+            console.error("get_news: JSON parse error, raw response:", raw);
+            if (loadingDiv) loadingDiv.remove();
+            haberDiv.innerHTML = "<p class='text-danger text-center w-100'>Sunucudan gelen veri JSON olarak parse edilemedi. Konsolu kontrol et.</p>";
+            return;
+        }
+
         if (loadingDiv) loadingDiv.remove();
 
         const results = Array.isArray(data.results) ? data.results : [];
@@ -120,10 +124,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         results.slice(0, 9).forEach((haber) => {
             haberDiv.appendChild(createCard(haber));
         });
-
     } catch (error) {
         if (loadingDiv) loadingDiv.remove();
-        const msg = error && error.message ? error.message : 'Haberler yuklenirken bir hata olustu.';
+        const msg = error && error.message ? error.message : "Haberler yuklenirken bir hata olustu.";
         haberDiv.innerHTML = `<p class='text-danger text-center w-100'>${msg}</p>`;
         console.error("Hata:", error);
     }

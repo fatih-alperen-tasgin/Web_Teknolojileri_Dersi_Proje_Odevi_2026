@@ -24,7 +24,7 @@ createApp({
             };
         };
 
-        // --- KRITIK GUNCELLEME: Spesifik Dogrulama ---
+        // ---  Spesifik Dogrulama ---
         const validateData = (data) => {
             if (!data) return {ok: false, message: 'Form bulunamadı.'};
 
@@ -68,29 +68,17 @@ createApp({
             return result.ok;
         };
 
-        const gonder = () => {
-            // Önce Vue denetimini yap
+        const gonder = () => {// Önce Vue denetimini yap
             if (!vueDenetle()) return;
-
-            // Session tabanlı CSRF: token zaten PHP'den form içine yerleştirilmiş
-            // Başka bir işlem yapılmasına gerek yok, form doğal olarak gönderiliyor
-
-            // Formu PHP'ye fırlat
             document.getElementById('iletisimFormu')?.submit();
         };
 
-        // JS Butonuna event listener ekle
-        // DOM yüklendikten sonra çalışması için küçük bir bekleme
         setTimeout(() => {
             const jsBtn = document.getElementById('js-denetle-btn');
             if (jsBtn) {
                 jsBtn.onclick = jsDenetle;
             }
         }, 100);
-
-        // iletisim.js: Session tabanlı CSRF Token
-        // Token zaten PHP'nin iletisim.php sayfasından form içine yerleştirilmiş
-        // Client-side token üretimi artık gerekli değil
 
         return {form, gonder, temizle, vueDenetle};
     }

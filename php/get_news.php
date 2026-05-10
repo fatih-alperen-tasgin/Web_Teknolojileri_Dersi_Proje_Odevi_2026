@@ -2,15 +2,14 @@
 // php/get_news.php
 require_once 'config.php'; // veya config.php
 
-// 1. API Anahtarını burada tanımlıyoruz (Kimse göremez)
+// 1. API bilgilerini ve sorgu parametrelerini tanımla
 $apiKey = "pub_db90c0b2fb864522b3f272cbff4ec12e";
 $query = "galatasaray";
 $language = "tr";
 
 $apiUrl = "https://newsdata.io/api/1/news?apikey=" . $apiKey . "&language=" . $language . "&q=" . urlencode($query);
 
-// 2. Haberleri çek (cURL veya file_get_contents)
-// 2b. Prefer cURL for reliability
+// 2. cURL ile API'ye istek yap
 $ch = curl_init($apiUrl);
 curl_setopt_array($ch, [
 	CURLOPT_RETURNTRANSFER => true,

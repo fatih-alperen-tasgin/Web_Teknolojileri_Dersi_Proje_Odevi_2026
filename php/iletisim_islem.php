@@ -1,24 +1,21 @@
 <?php
 require_once 'config.php';
 
-// İŞTE EKSİK OLAN IF BLOĞU BURADA BAŞLIYOR:
+// Formun POST ile gönderildiğinden emin olalım
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // 1. CSRF Güvenlik Kontrolü
+    // 1. CSRF Token Doğrulaması
     if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
         die("Güvenlik Hatası: Geçersiz Token!");
     }
 
-    // 2. Verileri Değişkenlere Atama ve XSS Koruması
-    // (Aşağıdaki HTML içinde kullandığın $ad, $email gibi değişkenleri burada tanımlıyoruz)
+    // 2. Kullanıcıdan Gelen Verileri Güvenli Hale Getirme
     $ad = htmlspecialchars($_POST['ad'] ?? '', ENT_QUOTES, 'UTF-8');
     $email = htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES, 'UTF-8');
     $konu = htmlspecialchars($_POST['konu'] ?? '', ENT_QUOTES, 'UTF-8');
     $mesaj = htmlspecialchars($_POST['mesaj'] ?? '', ENT_QUOTES, 'UTF-8');
     $cinsiyet = htmlspecialchars($_POST['cinsiyet'] ?? 'Belirtilmedi', ENT_QUOTES, 'UTF-8');
     $onay = isset($_POST['onay']) ? 'Kabul Edildi' : 'Kabul Edilmedi';
-
-// PHP bloğunu burada kapatıyoruz ki aşağıda HTML devam edebilsin
 ?>
 <!DOCTYPE html>
 <html lang="tr">

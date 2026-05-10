@@ -1,7 +1,7 @@
 <?php
-require_once 'config.php'; // Aynı klasörde olduklarını varsayıyoruz
+require_once 'config.php';
 
-// 1. CSRF Kontrolü
+// 1. CSRF Token Doğrulaması
 if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
     die("Güvenlik ihlali: Geçersiz Token.");
 }
@@ -9,7 +9,7 @@ if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST
 $kullanici = $_POST['kullanici'] ?? '';
 $sifre = $_POST['sifre'] ?? '';
 
-// Sabit veriler (Production'da DB'den gelmeli)
+// 2. Giriş Bilgilerini Doğrulama
 $dogru_mail = "b241210079@sakarya.edu.tr";
 $dogru_sifre = "b241210079";
 $display = "b241210079";

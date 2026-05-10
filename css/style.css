@@ -1,65 +1,32 @@
 /* 1. DEĞİŞKENLER VE RENK PALETİ */
 :root {
-    --ana-renk: rgb(36, 48, 63); /* slightly lightened for better contrast on dark pages */
+    --lacivert: rgb(36, 48, 63);
     --siyah: rgb(33, 37, 41);
-    --gs-sari: rgb(255, 193, 7);
-    --beyaz: #ffffff;
-    --gri-metin: #495057;
-    --kart-kenarlik: #e0e0e0;
+    --sari: rgb(255, 193, 7);
+    --beyaz: rgb(241, 241, 241);
+    --gri-metin: rgb(51, 51, 51);
+    --kart-kenarlik: rgb(255, 64, 64);
 }
 
-/* 2. ÖZEL RENK SINIFLARI (Utility Classes) */
-.bg-ana { background-color: var(--ana-renk) !important; }
-.bg-siyah { background-color: var(--siyah) !important; }
-.bg-sari { background-color: var(--gs-sari) !important; }
 
-.text-ana { color: var(--ana-renk) !important; }
-.text-sari { color: var(--gs-sari) !important; }
-.text-beyaz { color: var(--beyaz) !important; }
-
-/* 3. GENEL AYARLAR */
+/* 2. GENEL AYARLAR */
 body {
     background-color: var(--beyaz);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
+    color: var(--gri-metin);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     transition: opacity 0.4s ease-in-out;
 }
 
-/* Sayfa yüklendiğinde aktif olacak sınıf */
-body.loaded {
-    opacity: 1;
-}
-
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--ana-renk); /* Beyazlığı kapatan ana rengin */
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s ease;
-}
-
-/* Sayfa yüklendiğinde preloader'ı gizlemek için */
-.loader-hidden {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-}
 svg {
     fill: currentColor;
 }
 
-/* 4. NAVBAR VE LOADER AYARLARI */
+/* 3. NAVBAR VE LOADER AYARLARI */
 .navbar {
-    background-color: var(--ana-renk) !important;
+    background-color: var(--lacivert) !important;
     padding: 1rem 0;
 }
 
@@ -72,87 +39,45 @@ svg {
 }
 
 .navbar-nav .nav-link:hover {
-    color: var(--gs-sari) !important;
+    color: var(--sari) !important;
+}
+
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 #navbar-placeholder .nav-link::after {
     content: '';
     display: block;
-    width: 0; /* Başlangıçta genişlik sıfır */
+    width: 0;
     height: 2px;
-    background: var(--gs-sari);
+    background: var(--sari);
     margin-top: 5px;
     border-radius: 2px;
     transition: width 0.4s ease-in-out;
 }
 
 #navbar-placeholder .nav-link.active::after {
-    width: 100%; /* Aktif olduğunda tam genişlik */
+    width: 100%;
 }
 
-/* 5. BILEŞENLER (Components) */
+/* 4. BILEŞENLER (Components) */
 
 /* About Section */
 .about {
-    background-color: var(--ana-renk) !important;
-    color: var(--beyaz) !important;
+    background-color: var(--lacivert) !important;
+    color: var(--beyaz);
     padding: 80px 0;
     text-align: center;
 }
 
 .about h1, .about p, .about .lead {
-    color: var(--beyaz) !important;
+    color: var(--beyaz);
 }
 
-/* Özel Tablo Tasarımı */
-.table-custom {
-    border-collapse: separate;
-    border-spacing: 0;
-    width: 100%;
-    border: 1px solid var(--kart-kenarlik);
-    border-radius: 15px; /* Tablonun köşelerini yuvarlatıyoruz */
-    overflow: hidden; /* Köşelerin düzgün görünmesi için */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-/* Başlık Alanı (Thead) */
-.table-custom thead {
-    background-color: var(--ana-renk) !important;
-    color: var(--gs-sari) !important; /* Başlıklar Galatasaray sarısı */
-}
-
-.table-custom th {
-    padding: 15px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: none;
-}
-
-/* Satır Ayarları */
-.table-custom td {
-    padding: 12px 15px;
-    vertical-align: middle;
-    border-bottom: 1px solid #f0f0f0;
-    color: var(--gri-metin);
-}
-
-.table-custom th {
-    background-color: var(--ana-renk) !important;
-    color: #ffffff !important;
-}
-
-
-/* Hover Efekti (Fare ile üzerine gelince) */
-.table-custom tbody tr:hover {
-    background-color: rgba(28, 37, 51, 0.03); /* Çok hafif lacivert bir vurgu */
-    transition: background-color 0.3s ease;
-}
-
-/* Son satırın çizgisini kaldıralım */
-.table-custom tbody tr:last-child td {
-    border-bottom: none;
-}
 
 /* Modern Kartlar */
 .card {
@@ -174,7 +99,7 @@ svg {
 }
 
 .card-text {
-    color: var(--gri-metin) !important;
+    color: var(--gri-metin);
     font-size: 0.95rem;
     line-height: 1.6;
 }
@@ -194,41 +119,34 @@ svg {
 }
 
 .btn-dark-custom {
-    background-color: #212529 !important;
-    color: var(--gs-sari) !important;
+    background-color: #212529;
+    color: var(--sari) !important;
 }
 
-/* 6. YARDIMCI ÖĞELER */
+/* 5. YARDIMCI ÖĞELER */
 .badge {
     margin-bottom: 0.5rem;
     display: inline-block;
 }
 
 footer {
-    background-color: var(--ana-renk) !important;
+    background-color: var(--lacivert) !important;
     color: var(--beyaz) !important;
     margin-top: auto;
 }
 
-/* style.css dosyanın en sonuna ekle */
+/* Body - sayfa tamamen hazır olduğunda arkaplanı beyaza döndür */
 body {
-    background-color: #ffffff !important; /* Sayfa tamamen hazır olduğunda beyaza döner */
-    transition: background-color 0.5s ease; /* Renk geçişi de yumuşak olsun */
+    background-color: #ffffff;
+    transition: background-color 0.5s ease;
 }
 
 .text-warning {
-    color: #ffc107 !important; /* GS Sarısı */
-    filter: drop-shadow(0 0 2px rgba(255, 193, 7, 0.5)); /* Hafif parlama efekti */
+    color: #ffc107;
+    filter: drop-shadow(0 0 2px rgba(255, 193, 7, 0.5));
 }
 
-.auth-card {
-    max-width: 460px;
-    width: 100%;
-}
-
-/* Utility helpers to replace inline styles */
-.min-vh-80 { min-height: 80vh !important; }
-.max-w-400 { max-width: 400px !important; width: 100% !important; }
+/* Satır içi stilleri değiştirmek için yardımcı işlevler */
 .z-2 { z-index: 2 !important; }
 .z-1 { z-index: 1 !important; }
 .lead-centered { max-width: 700px; margin-left: auto; margin-right: auto; }
@@ -236,41 +154,65 @@ body {
 .min-h-400 { min-height: 400px !important; }
 .max-w-180 { max-width: 180px !important; }
 .progress-sm { height: 8px !important; }
-.link-highlight { color: #ffd966 !important; }
-.server-error-body { background: #1c2533; color: #fff; padding: 2rem; font-family: sans-serif; }
-.bg-ana .card {
+.bg-beyaz .card {
     background-color: rgba(255,255,255,0.03) !important;
     color: #ffffff !important;
     border: 1px solid rgba(255,255,255,0.06) !important;
 }
-.bg-ana .card .card-title,
-.bg-ana .card .card-text,
-.bg-ana .card .small {
+.bg-beyaz .card .card-title,
+.bg-beyaz .card .card-text,
+.bg-beyaz .card .small {
     color: rgba(255,255,255,0.9) !important;
 }
-/* Spinner sizing used in several pages */
+/* Birkaç sayfada kullanılan döner simgenin boyutlandırılması */
 .spinner-border {
     width: 3rem;
     height: 3rem;
 }
 
-/* FatEnTa - Şehrim Sayfası Slider Düzenlemesi */
+/* Sehir sayfası Slider ve Gorsel Optimizasyonu */
 
-/* Sadece bu slider içindeki resimleri hedef alalım (Specificity koruması) */
-#erzurumCarousel .carousel-item img,
-#konyaCarousel .carousel-item img,
-#carouselExampleDark .carousel-item img {
-    /* Resmin yüksekliğini sabitleyelim (İstediğin değere göre değiştirebilirsin, örn: 500px) */
-    height: 85vh !important; /* vh: Viewport Height. Ekran yüksekliğinin %60'ı kadar. */
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+}
 
-    /* En önemli kısım: Resmi yamultma, belirtilen alana sığacak şekilde merkezden kırp. */
-    object-fit: cover !important;
-
-    /* Resmin merkezini odak noktası yap */
+/* [CORE_LOGIC]: Temel resim davranisi (Oran koruma ve merkezleme) */
+.carousel-inner img {
+    width: 100%;
+    object-fit: cover;
     object-position: center center;
 }
 
-/* Küçük ekranlar (Mobil) için yüksekliği biraz azaltalım */
+/* [RESPONSIVE_MOBILE]: Telefon ve tabletler icin standart yukseklik */
+@media (max-width: 768px) {
+    .carousel-inner img {
+        height: 400px;
+    }
+}
+
+/* [RESPONSIVE_DESKTOP]: Genis ekranli bilgisayarlar icin dinamik yukseklik */
+@media (min-width: 769px) {
+    .carousel-inner img {
+        height: 90vh; /* Ekran yuksekliginin %75'i kadar alan kaplar, kesilmeyi onler */
+    }
+}
+
+.img-cover {
+    object-fit: cover;
+    height: 100%;
+}
+
+/* [UI_INTERACTION]: Tiklanabilir resimler icin pointer gostergesi */
+.img-cover, .section-img {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+.img-cover:hover {
+    opacity: 0.9;
+}
+/* Küçük ekranlar (Mobil) için */
 @media (max-width: 768px) {
     #erzurumCarousel .carousel-item img,
     #konyaCarousel .carousel-item img,
