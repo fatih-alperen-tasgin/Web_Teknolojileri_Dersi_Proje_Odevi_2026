@@ -28,3 +28,17 @@ Proje, sürdürülebilir bir dosya yapısı üzerine inşa edilmiştir. Kişisel
 ## 📝 Mühendislik Notları
 
 Proje geliştirme sürecinde, kodun sadece çalışmasına değil, okunabilirliğine ve bakım maliyetinin düşük olmasına (maintainability) odaklanılmıştır.
+
+---
+
+## 🚀 Canlı Dağıtım ve Yerel Altyapı İyileştirmeleri (Eylül 2026)
+
+Projenin sürdürülebilirliği, geliştirme ortamı uyumluluğu ve üretim (production) kararlılığı adına aşağıdaki yapılandırmalar tamamlanmıştır:
+
+### 🔒 1. Yerel Geliştirme Ortamı (Localhost & Virtual Host)
+- **Virtual Host Yapılandırması:** Apache üzerinde `fatenta.local` sanal konağı oluşturularak, kök dizin (root path) bağımlılıkları canlı ortam standartlarına getirildi.
+- **Yerel SSL/TLS Entegrasyonu:** `mkcert` kullanılarak yerel bir Sertifika Yetkilisi (CA) tanımlandı; geliştirme aşamasında HTTPS protokolü üzerinden uçtan uca şifreleme sağlandı.
+
+### 🌐 2. Canlı Sunucu ve Süreklilik (High Availability)
+- **Hizmet Sürekliliği (Uptime Monitoring):** Barındırma altyapısındaki inaktiflik kaynaklı hizmet kesintilerini önlemek adına periyodik sağlık kontrolleri (Health Check) entegre edildi.
+- **Kaynak Optimizasyonu:** Sunucu kaynaklarını ve bant genişliğini tüketmeyecek şekilde 23 saatlik aralıklarla otomatik HTTP kontrol mekanizması kurgulandı.
